@@ -1,0 +1,65 @@
+﻿@model WebApplicationForSummerCamp.Models.NewAnn
+
+@{
+    ViewBag.Title = "ADD";
+}
+
+
+
+<!--<h2>ADD- post data to web API using HTTP Client</h2>-->
+<h2>Adauga un anunt nou</h2>
+
+<div style="max-width:600px">
+    @using (Html.BeginForm("ADD", "Home", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @if (ViewBag.Result != null)
+            {
+                <div style="color:red">@ViewBag.Result</div>
+            }
+        </div>
+
+        <!--cu dropdown-->
+        <div class="form-group">
+            @Html.LabelFor(x => x.CategoryId, "Denumire categorie")
+
+            @Html.DropDownListFor(x => x.CategoryId, new SelectList( Model.CategoriesDataSource,"CategoryId","Name"))
+            @Html.ValidationMessageFor(a => a.CategoryId, "", new { @class = "text-danger" })
+        </div>
+        
+       
+        <div class="form-group">
+            @Html.LabelFor(a => a.Title)
+            @Html.TextBoxFor(a => a.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Title, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(a => a.Phonenumber)
+            @Html.TextBoxFor(a => a.Phonenumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Phonenumber, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(a => a.Email)
+            @Html.TextBoxFor(a => a.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(a => a.Description)
+            @Html.TextBoxFor(a => a.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Description)
+        </div>
+
+        <input type="submit" value="Create" class="btn btn-lg btn-success btn-block" />
+    }
+</div>
+
+<center>@Html.ActionLink("Inapoi la anunturi", "Index", "Home")</center>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

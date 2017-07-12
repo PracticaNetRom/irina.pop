@@ -1,0 +1,47 @@
+﻿@model WebApplicationForSummerCamp.Models.Review
+
+@{
+    ViewBag.Title = "PostComment";
+}
+
+<h2>PostComment</h2>
+
+<div style="max-width:600px">
+    @using (Html.BeginForm("PostComment", "Home", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @if (ViewBag.Result != null)
+            {
+                <div style="color:red">@ViewBag.Result</div>
+            }
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(a => a.Username)
+            @Html.TextBoxFor(a => a.Username, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Username, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(a => a.Comment)
+            @Html.TextBoxFor(a => a.Comment, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Comment, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(a => a.Rating)
+            @Html.TextBoxFor(a => a.Rating, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Rating, "", new { @class = "text-danger" })
+        </div>
+
+        
+        <input type="submit" value="Create" class="btn btn-lg btn-primary btn-block" />
+    }
+</div>
+
+<center>@Html.ActionLink("Inapoi la anunturi", "Index", "Home")</center>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

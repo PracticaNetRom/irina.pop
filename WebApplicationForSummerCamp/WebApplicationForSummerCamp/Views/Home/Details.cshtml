@@ -1,0 +1,153 @@
+﻿@model WebApplicationForSummerCamp.Models.Detalii
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<head>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #myTable {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            #myTable th, #myTable td {
+                text-align: left;
+                padding: 12px;
+            }
+
+            #myTable tr {
+                border-bottom: 1px solid #ddd;
+            }
+
+                #myTable tr.header, #myTable tr:hover {
+                    background-color: #f1f1f1;
+                }
+
+
+        /*--------------------pentru comentarii-------------------------------*/
+        #containerComentariu {
+            border: 2px solid #ccc;
+            background-color: #eee;
+            border-radius: 5px;
+            padding: 16px;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+            #containerComentariu span {
+                font-size: 20px;
+                margin-right: 15px;
+            }
+
+        #rating {
+            margin-right: 20px;
+            border-radius: 50%;
+            background-color: darkgray;
+            padding-bottom: 10px;
+            padding-top: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
+            color: white;
+            margin: auto;
+            display: block;
+        }
+
+        #review {
+            float: left;
+            font-weight: bold;
+        }
+
+        #extinde{
+            float:right;
+        }
+    </style>
+</head>
+
+
+<br />
+<br />
+
+<div id="detalii anunt" class="panel panel-success">
+    <div class="panel-heading"><h3 class="panel-title">Detalii anunt</h3></div>
+    <div class="panel-body">
+        <table class="table" id="myTable">
+            <tr>
+                <th>Titlu anunt</th>
+                <td>@Html.DisplayFor(modelItem => modelItem.Title)</td>
+            </tr>
+            <tr>
+                <th>Denumire categorie</th>
+                <td>@Html.DisplayFor(modelItem => modelItem.CategoryName)</td>
+            </tr>
+            <!--
+            <tr>
+                <th>Identificator categorie</th>
+                <td>Html.DisplayFor(modelItem => modelItem.CategoryId)</td>
+            </tr>
+            -->
+            <tr>
+                <th>Descriere</th>
+                <td>@Html.DisplayFor(modelItem => modelItem.Description)</td>
+            </tr>
+            <tr>
+                <th>Closed</th>
+                <td>@Html.DisplayFor(modelItem => modelItem.Closed)</td>
+            </tr>
+            <tr>
+                <th>Data postare</th>
+                <td>@Html.DisplayFor(modelItem => modelItem.PostDate)</td>
+            </tr>
+            <tr>
+                <th>Data expirare</th>
+                <td>@Html.DisplayFor(modelItem => modelItem.ExpirationDate) <span id="extinde">@Html.ActionLink("Extinde anuntul", "Extend", new { id = Model.Id }, new { @class = "btn btn-info" }) </span></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+
+ <br />
+<center>
+    @Html.ActionLink("Adauga comentariu", "PostComment", new { id = Model.Id }, new { @class = "btn btn-primary" })
+</center>
+<br />
+
+<div id="detalii anunt" class="panel panel-primary">
+    <div class="panel-heading"><h3 class="panel-title">Comentarii anunt</h3></div>
+    <div class="panel-body">
+        @foreach (var com in Model.Comentarii)
+        {
+            <div id="containerComentariu">
+
+              @* <p id="review">Rating:<span id="rating"> @Html.DisplayFor(modelItem => com.Rating)</span></p>*@
+               
+
+                <p> <span> @Html.DisplayFor(modelItem => com.Username)</span> </p>
+                <p> @Html.DisplayFor(modelItem => com.Comment)</p>
+                <p>
+                    
+                    @for (int i = 1; i <= com.Rating; i++)
+                    {
+
+                        <span class="glyphicon glyphicon-star"></span>
+
+                    }
+                </p>
+            </div>
+        }
+
+        </div>
+    </div>
+
+
+
+
+        

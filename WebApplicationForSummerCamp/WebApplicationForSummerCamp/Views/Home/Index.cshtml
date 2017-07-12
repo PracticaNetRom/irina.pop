@@ -1,0 +1,168 @@
+﻿@model IEnumerable<WebApplicationForSummerCamp.Models.Announcement>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<head>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #myInput {
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+            
+        }
+
+        #myTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-collapse:separate; 
+            border-spacing:5em; 
+            
+            
+        }
+
+            #myTable th, #myTable td {
+                text-align: left;
+                padding: 12px;
+            }
+
+            #myTable tr {
+               
+                border-radius:20%;
+                
+            }
+
+            #myTable tr.header, #myTable tr:hover {
+                 background-color: darkgray;
+            }
+
+            #myTable td{
+                display:block;
+            }
+
+            #titlu{
+                float:left;
+                font-weight:bold;
+                font-family:'Comic Sans MS',Arial;
+                margin: 0px 40px;
+            }
+            #closed{
+                float:right;
+                font-weight:bold;
+            }
+             #identificator {
+               
+                margin-right: 20px;
+                border-radius: 50%;
+                background-color: darkgray;
+                padding-bottom: 10px;
+                padding-top: 10px;
+                padding-left: 20px;
+                padding-right:20px;
+                color:white;
+                margin: auto;
+                display: block;
+            }
+              #identificator2{
+                 float: left;
+                 font-weight:bold;
+            }
+            #linkuri{
+                float:right;
+            }
+
+            .table.table-borderless td, .table.table-borderless th {
+                border: 0 !important;
+            }
+
+            .table.table-borderless {
+                margin-bottom: 0px;
+            }
+
+            #anunt{
+                 margin: 200px;
+                background-color: #f1f1f1;
+            }
+            
+    </style>
+</head>
+
+
+
+
+<h2>Anunturi</h2>
+
+
+    <b>Filtru categorie:</b> <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for category.." title="Type in a category">
+
+
+<table class="table table-borderless" id="myTable">
+   
+    @foreach (var item in Model)
+    {
+        <tr id="anunt">
+            <td id="identificator2">
+                <span id="identificator"> @Html.DisplayFor(modelItem => item.Id) </span>
+            </td>
+            <td id="titlu">
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td id="closed">
+               Closed: @Html.DisplayFor(modelItem => item.Closed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td id="linkuri">
+                @Html.ActionLink("Vezi detalii", "Details", new { id = item.Id }, new { @class = "btn btn-success" }) 
+               
+                
+                @Html.ActionLink("Inchide anuntul", "Close", new { id = item.Id }, new { @class = "btn btn-warning" })
+              </td>
+        </tr>
+    }
+
+</table>
+
+
+<!--link pentru adauagre anunt( te duce in controller in actiunea ADD,cea fara parametru cu metoda Get)-->
+<center>@Html.ActionLink("Adauga anunt", "ADD")</center>
+
+
+
+<!--script pentru bara de cautare-->
+
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[3];
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+
