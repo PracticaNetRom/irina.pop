@@ -45,7 +45,7 @@ namespace WebApplicationForSummerCamp.Controllers
                 return View(AnnouncementsList);
             }
         }
-
+        //comentariu nou
         /*
         //obtinere datalii anunt
         public async Task<ActionResult> Details(int id)
